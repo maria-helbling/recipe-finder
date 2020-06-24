@@ -2,30 +2,42 @@
 populateCountries("country-choice");
 
 var countryName = $("#country-choice");
+var dateArray = [];
+
+for (let i = 14; i > 0; i--) {
+    var date = moment().subtract(i, 'days').format("YYYY-MM-DD");
+    dateArray.push(date);
+        
+}
 
 // grabbing country covid data
-function countryData (){
-    var resultBox = $("#result-box");
+for (let i = 0; i < dateArray.length; i++) {
     
-    var queryURL = "https://covid-api.com/api/reports?date=" + "2020-06-23" + "&region_name=" + "estonia";
+            function countryData (){
+                var resultBox = $("#result-box");
+                
+                var queryURL = "https://covid-api.com/api/reports?date=" + dateArray[i] + "&region_name=" + "estonia";
+                console.log(queryURL)
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function(response){
-        var activeCases = 0;
-        // var confirmedCases = 0;
-        confirmedDiff = 0;
-        var regionCount= response.data.length
-        // for loop to grap the data for each region/province
-        for (let i = 0; i < regionCount; i++) {
-            activeCases += (response.data[i].active);
+                $.ajax({
+                    url: queryURL,
+                    method: "GET"
+                }).then(function(response){
+                    var activeCases = 0;
+                    // var confirmedCases = 0;
+                    confirmedDiff = 0;
+                    var regionCount= response.data.length
+                    // for loop to grap the data for each region/province
+                    for (let i = 0; i < regionCount; i++) {
+                        activeCases += (response.data[i].active);
+                        
+                        confirmedDiff += response.data[i].confirmed_diff;
+                    }
+                    console.log(activeCases);
+                    console.log(confirmedDiff)
+                })
+            }
             
-            confirmedDiff += response.data[i].confirmed_diff;
-        }
-        console.log(activeCases);
-        console.log(confirmedDiff)
-    })
 }
 // grabbing country population for calculations
 function countryPop (){
@@ -56,3 +68,6 @@ let calcTrend = (numArr) => {
     let b=(sumXY - sumX*sumY/n)/(sumX2 - sumX*sumX/n);
     return b;
 }
+
+countryData();
+countryPop();
