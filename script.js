@@ -1,34 +1,61 @@
 let countryChoice;
-let activeCases;
-let confirmedDiff;
+let activeCases = [];
+let confirmedDiff = [];
 let currentPop;
 
 //populates countries to drop-down from countries.js
 populateCountries("country-choice");
 
+var countryName = $("#country-choice");
+var dateArray = [];
+
+for (let i = 14; i > 0; i--) {
+    var date = moment().subtract(i, 'days').format("YYYY-MM-DD");
+    dateArray.push(date);
+}
+
 // grabbing country covid data
 function countryData() {
-    if (countryChoice === 'United States') {countryChoice='US'}
-    var queryURL = "https://covid-api.com/api/reports?date=" + "2020-06-23" + "&region_name=" + countryChoice;
 
-    $.ajax({
-        url: queryURL,
-        method: "GET"
-    }).then(function (response) {
-        activeCases = 0;
-        // var confirmedCases = 0;
-        confirmedDiff = 0;
-        var regionCount = response.data.length
-        // for loop to grap the data for each region/province
-        for (let i = 0; i < regionCount; i++) {
-            activeCases += (response.data[i].active);
+    dateArray.forEach((value, index) => {
+        if (countryChoice === 'United States') { countryChoice = 'US' }
+        var queryURL = "https://covid-api.com/api/reports?date=" + value + "&region_name=" + countryChoice;
+        console.log(queryURL)
 
-            confirmedDiff += response.data[i].confirmed_diff;
-        }
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        }).then(function (response) {
+            var activeSum = 0;
+            var newSum = 0
+            // var confirmedCases = 0
+            var regionCount = response.data.length
+            // for loop to grap the data for each region/province
+            for (let i = 0; i < regionCount; i++) {
+                activeSum += (response.data[i].active);
+                
 
-        renderResults();
+                newSum += response.data[i].confirmed_diff;
+            }
+            // console.log(activeSum);
+            
+            activeCases.push(activeSum);
+            confirmedDiff.push(newSum);
+
+            if (index === dateArray.length -1){
+            console.log(activeCases);
+            console.log(confirmedDiff);
+
+            calcTrend(activeCases);
+            calcTrend(confirmedDiff);
+            renderResults();
+            
+            }
+        
+        })
     })
-}
+} 
+
 
 // grabbing country population for calculations
 function countryPop() {
@@ -41,7 +68,7 @@ function countryPop() {
         currentPop = response.records[0].fields.value;
         countryData();
     })
-        
+
 }
 
 // function to calculate trend from array of numbers
@@ -63,10 +90,10 @@ let calcTrend = (numArr) => {
 
 //render results on page
 let renderResults = () => {
-    
-    let dispActive = (activeCases/currentPop)*100000
+
+    let dispActive = (activeCases[13] / currentPop) * 100000
     dispActive = dispActive.toFixed(1)
-    let dispNew = (confirmedDiff/currentPop)*100000
+    let dispNew = (confirmedDiff[13] / currentPop) * 100000
     dispNew = dispNew.toFixed(2)
     $('#result-box').append($('<div id="active-cases">').text(dispActive))
     $('#result-box').append($('<div id="new-cases">').text(dispNew))
