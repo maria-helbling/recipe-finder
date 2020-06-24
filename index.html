@@ -16,37 +16,61 @@
 </head>
 
 <body>
-    
-        <nav class="navbar is-warning" role="navigation" aria-label="main navigation">
+        <html class="has-navbar-fixed-top"></html>
+        <nav class="navbar is-fixed-top is-warning notification" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <a class="navbar-item">Home</a>
+                <a href="index.html" navbar-item has-text-weight-semibold">Home</a>
             </div>
         </nav>
-        <section class="hero is-danger">
-            <div class="hero-body">
-                <div class="container">
-                    <h1 class="title">
-                        Hero title
-                    </h1>
-                    <h2 class="subtitle">
-                        Hero subtitle
-                    </h2>
+  
+
+    <section class="hero is-danger">
+            <figure class="is-background image is-fluid">
+                <img src="assets\man in airport.jpg">
+            </figure>
+        <div class="hero-body">
+            <div class="container">
+                 <h1 class="title">
+                        What is the COVID-19 risk
+                </h1>
+                 <h2 class="subtitle">
+                    where you would like to travel?
+                </h2>
+                
+            </div>
+        </div>
+    </section>
+        <!--This is the country dropdown-->
+    <section class="container">
+        <div class="columns">
+            
+            <div class="column is-one-half">
+            <div class="container notification center">
+                    <div class="select is-one-half">
+                        <select id="country-choice"></select>
+                    </div>
                 </div>
+            </div>
+
+            
+        </div>
+    </section>
+        
+
+        
+        
+    
+        </section>
+            <!--Result-->
+        <section class="notification is-light center">
+            <div class="container">
+            <div id="result-box">results box</div>
             </div>
         </section>
 
-        <!--This is the country dropdown-->
-        <section sclass="container notification">   
-            <div class="select">
-                <select id="country-choice"></select>
-            </div>
-        </section>
-        <!-- This is the button that runs the function to search stats -->
-        <section>
-            <button id="submit-btn" class="button is-large is-fullwidth is-primary">SUBMIT</button>
-            <!--Result-->
-            <div id="result-box"></div>
-        </section>
+
+
+
 
         <script src="script.js"></script>
 </body>
