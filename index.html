@@ -26,58 +26,62 @@
 </head>
 
 <body>
+
         <html class="has-navbar-fixed-top"></html>
+
         <nav class="navbar is-fixed-top is-warning notification" role="navigation" aria-label="main navigation">
             <div class="navbar-brand">
-                <a href="index.html" navbar-item has-text-weight-semibold">Home</a>
+                <a href="index.html" class="navbar-item has-text-weight-semibold">Home</a>
             </div>
         </nav>
-  
+    
 
     <section class="hero is-danger">
-            <figure class="is-background image is-fluid">
-                <img src="assets\man in airport.jpg">
-            </figure>
+        <figure class="is-background image is-fluid">
+            <img src="assets\man in airport.jpg">
+        </figure>
         <div class="hero-body">
             <div class="container">
-                 <h1 class="title">
-                        What is the COVID-19 risk
+                <h1 class="title">
+                    What is the COVID-19 risk
                 </h1>
-                 <h2 class="subtitle">
+                <h2 class="subtitle">
                     where you would like to travel?
                 </h2>
-                
             </div>
         </div>
     </section>
+
+
         <!--This is the country dropdown-->
-    <section class="container">
-        <div class="columns">
-            
-            <div class="column is-one-half">
-            <div class="container notification center">
-                    <div class="select is-one-half">
-                        <select id="country-choice"></select>
+    
+        <div class="container">
+            <div class="columns">   
+                <div class="column center">
+                    <div class="notification">
+                        <div class="select">
+                            <select id="country-choice"></select>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+
+        
+
+        <!--Result-->   
+    
+        <div class="container">
+            <div class="columns">
+                <div class="column center">
+                    <div class="box notification">
+                        <h3 class="is-size-4">Results:</h3>
+                        <div id="result-box"></div>
                     </div>
                 </div>
             </div>
-
-            
         </div>
-    </section>
-        
-
-        
-        
     
-        </section>
-            <!--Result-->
-        <section class="notification is-light center">
-            <div class="container">
-            <div id="result-box">results box</div>
-            </div>
-        </section>
-
 
 
 
