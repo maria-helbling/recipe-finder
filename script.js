@@ -4,11 +4,17 @@ let confirmedDiff = [];
 let currentPop;
 var dateArray = [];
 
+// variables for states:
+let stateChoice= "Washington"
+
 //populates countries to drop-down from countries.js
 populateCountries("country-choice");
 
+// //populates states to drop-down from states.js?
+populateStates("state-choice");
+
 //populates the data array with the last 14 days
-for (let i = 14; i > 0; i--) {
+for (let i = 15; i > 1; i--) {
     var date = moment().subtract(i, 'days').format("YYYY-MM-DD");
     dateArray.push(date);
 }
@@ -32,7 +38,7 @@ function countryData() {
             var activeSum = 0;
             var newSum = 0;
             var regionCount = response.data.length
-            //TODO: do we still have the total pop data anomaly in US data? if (countryChoice === 'US') {regionCount--}
+             if (countryChoice === 'US') {regionCount--}
             // for loop to grab the data for each region/province
             for (let i = 0; i < regionCount; i++) {
                 activeSum += (response.data[i].active);
@@ -66,6 +72,55 @@ function countryPop() {
     })
 
 }
+
+
+function stateData() {
+     //reset array variables
+     activeCases = [];
+     confirmedDiff = [];
+    //loop through the last 14 days of data
+    dateArray.forEach((value, index) => {
+
+        var queryStateURL = "https://covid-api.com/api/reports?date=" + value + "&q=US%20" + stateChoice + "&region_name=US";
+
+        $.ajax({
+            url: queryStateURL,
+            method: "GET"
+        }).then(function (response) {
+            
+            //results array
+            activeCases.push(response.data[0].active);
+            confirmedDiff.push(response.data[0].confirmed_diff);
+
+            //on the last date iteration do calculations and render results
+            if (index === dateArray.length - 1) {
+                //put results on page
+                renderResults();
+            }
+        })
+    })
+}
+
+function statePop() {
+    var popURL = "https://api.census.gov/data/2019/pep/population?get=POP,NAME,STATE&for=state"
+
+    $.ajax({
+        url: popURL,
+        method: "GET"
+    }).then(function (response) {
+
+        for (let value of response){
+            console.log(value);
+            if (value[1] === stateChoice){
+            currentPop = parseInt(value[0]);
+            break
+            }
+        };
+        stateData();
+    })
+
+}
+
 
 // function to calculate trend from array of numbers
 let calcTrend = (numArr) => {
