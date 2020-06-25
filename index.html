@@ -9,13 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
     <!-- our style sheet  -->
     <link rel="stylesheet" href="style.css">
-<<<<<<< HEAD
     <!-- font awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-=======
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
->>>>>>> dev
     <!-- moment.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
     <!-- Chart.js -->
@@ -68,7 +63,7 @@
                 </div> 
             </div>
         </div>
-        <div id="state-choice-box" class="container">
+        <div class="container is-hidden" id="state-choice-box">
             <div class="columns">
                 <div class="column center">
                     <div class="notification">
@@ -88,7 +83,7 @@
             <div class="columns">
                 <div class="column center">
                     <div class="box notification">
-                        <h3 class="is-size-4">Results:</h3>
+                        <h3 class="is-size-4" id="result-title">Results</h3>
                         <div id="result-box"></div>
                     </div>
                 </div>

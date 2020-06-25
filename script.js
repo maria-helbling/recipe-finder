@@ -3,11 +3,8 @@ let activeCases = [];
 let confirmedDiff = [];
 let currentPop;
 var dateArray = [];
-let stateChoice;
+let stateChoice="";
 let mean;
-
-// variables for states:
-let stateChoice= "Washington"
 
 //populates countries to drop-down from countries.js
 populateCountries('country-choice');
@@ -68,7 +65,6 @@ function countryPop() {
         method: "GET"
     }).then(function (response) {
         currentPop = response.records[0].fields.value;
-        console.log(currentPop)
         countryData();
     })
     
@@ -112,10 +108,9 @@ function statePop() {
     }).then(function (response) {
 
         for (let value of response){
-            console.log(value);
             if (value[1] === stateChoice){
             currentPop = parseInt(value[0]);
-            break
+            break;
             }
         };
         stateData();
@@ -156,6 +151,8 @@ let sum = (arr) => {
 //render results on page
 let renderResults = () => {
     $('#result-box').empty()
+    $('#result-title').text(`Results for ${countryChoice}`)
+    if (stateChoice) {$('#result-title').text(`Results for ${stateChoice}`)}
     if(sum(activeCases) || sum(confirmedDiff)) {
     //final calc for output variables
     //here we take latest day data on cases per 100 000 people
@@ -185,6 +182,12 @@ let renderResults = () => {
 //listen to drop-down menu change
 $('#country-choice').change(function () {
     countryChoice = $(this).val()
+    //reset state drop-down if needed
+    if (stateChoice.length>0) {
+        $('#state-choice')[0].selectedIndex = 0;
+        $('#state-choice-box').addClass('is-hidden')
+        stateChoice = '';
+    }
     //call ajax for population data ==> countryData ==> renderResults
     countryPop();
     if (countryChoice === 'United States'){
@@ -196,10 +199,7 @@ $('#country-choice').change(function () {
 //listen to state drop-down menu change
 $('#state-choice').change(function (){
     stateChoice = $(this).val()
-    console.log(stateChoice)
     //call ajax for state population data ==> state COVID data ==> renderResults
-    // statePop();
+    statePop();
 })
-
-//TODO: what if the user changes back to State=Choose state?
 
