@@ -8,7 +8,7 @@ let mean;
 
 //populates countries to drop-down from countries.js
 populateCountries('country-choice');
-// populateStates('state-choice');
+populateStates('state-choice');
 
 //populates the data array with the last 14 days
 for (let i = 14; i > 0; i--) {
@@ -92,10 +92,17 @@ let calcTrend = (numArr) => {
     
 }
 
+//adds all numbers in array and returns sum
+let sum = (arr) => {
+    let tot = 0
+    arr.forEach(value => tot+=value)
+    return tot;
+}
+
 //render results on page
 let renderResults = () => {
     $('#result-box').empty()
-    
+    if(sum(activeCases) || sum(confirmedDiff)) {
     //final calc for output variables
     //here we take latest day data on cases per 100 000 people
     let dispActive = (activeCases[activeCases.length-1] / currentPop) * 100000
@@ -107,8 +114,6 @@ let renderResults = () => {
     dispNewTrend = dispNewTrend.toFixed(1)
     let dispActiveTrend = calcTrend(activeCases)
     dispActiveTrend = dispActiveTrend.toFixed(1)
-    //check if there is data
-    if (mean){
     //here we include a variable for + sign in case the trend is positive. - sign for negative would appear mathematically anyway
     let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
     let signNewTrend = (dispNewTrend > 0) ? '+' : '';
@@ -129,7 +134,7 @@ $('#country-choice').change(function () {
     //call ajax for population data ==> countryData ==> renderResults
     countryPop();
     if (countryChoice === 'United States'){
-    $('#state-choice').removeClass('is-hidden')
+    $('#state-choice-box').removeClass('is-hidden')
     }
 
 })
@@ -137,9 +142,10 @@ $('#country-choice').change(function () {
 //listen to state drop-down menu change
 $('#state-choice').change(function (){
     stateChoice = $(this).val()
+    console.log(stateChoice)
     //call ajax for state population data ==> state COVID data ==> renderResults
     // statePop();
 })
 
 //TODO: what if the user changes back to State=Choose state?
-//TODO: check if no data or just zeroes and design answer as that
+
