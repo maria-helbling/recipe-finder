@@ -3,9 +3,12 @@ let activeCases = [];
 let confirmedDiff = [];
 let currentPop;
 var dateArray = [];
+let stateChoice;
+let mean;
 
 //populates countries to drop-down from countries.js
-populateCountries("country-choice");
+populateCountries('country-choice');
+// populateStates('state-choice');
 
 //populates the data array with the last 14 days
 for (let i = 14; i > 0; i--) {
@@ -51,7 +54,6 @@ function countryData() {
     })
 }
 
-
 // grabbing country population for calculations
 function countryPop() {
     var popURL = "https://data.opendatasoft.com/api/records/1.0/search/?dataset=world-population%40kapsarc&q=" + countryChoice + "&facet=year&facet=country_name&refine.year=2018"
@@ -80,15 +82,20 @@ let calcTrend = (numArr) => {
         sumXY += (index + 1) * value;
         sumY += value;
     })
+
     let b = (sumXY - sumX * sumY / n) / (sumX2 - sumX * sumX / n);
-    let mean = sumY / n
+    mean = sumY / n
     //return trend as % of average value for more comprehensible result
-    return b / mean * 100;
+    if (b) {
+        return b / mean * 100;
+    } else { return 0}
+    
 }
 
 //render results on page
 let renderResults = () => {
     $('#result-box').empty()
+    
     //final calc for output variables
     //here we take latest day data on cases per 100 000 people
     let dispActive = (activeCases[activeCases.length-1] / currentPop) * 100000
@@ -96,10 +103,12 @@ let renderResults = () => {
     let dispNew = (confirmedDiff[confirmedDiff.length -1] / currentPop) * 100000
     dispNew = dispNew.toFixed(2)
     //here we calculate the trend in each variable over 14 days
-    let dispActiveTrend = calcTrend(activeCases)
-    dispActiveTrend = dispActiveTrend.toFixed(1)
     let dispNewTrend = calcTrend(confirmedDiff)
     dispNewTrend = dispNewTrend.toFixed(1)
+    let dispActiveTrend = calcTrend(activeCases)
+    dispActiveTrend = dispActiveTrend.toFixed(1)
+    //check if there is data
+    if (mean){
     //here we include a variable for + sign in case the trend is positive. - sign for negative would appear mathematically anyway
     let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
     let signNewTrend = (dispNewTrend > 0) ? '+' : '';
@@ -109,14 +118,28 @@ let renderResults = () => {
 
     $('#result-box').append($('<div id="new-cases">').text(`New cases per day per 100k people ${dispNew}`));
     $('#result-box').append($('<div id="new-cases-trend">').text(`New case trend is ${signNewTrend}${dispNewTrend}% per day`));
-    
+    } else {
+    $('#result-box').append($('<div id="active-cases">').text(`No Data reported`));
+    }
 }
 
 //listen to drop-down menu change
 $('#country-choice').change(function () {
     countryChoice = $(this).val()
-    // this will go inside the countryData ajax: 
-    console.log(countryChoice)
     //call ajax for population data ==> countryData ==> renderResults
     countryPop();
+    if (countryChoice === 'United States'){
+    $('#state-choice').removeClass('is-hidden')
+    }
+
 })
+
+//listen to state drop-down menu change
+$('#state-choice').change(function (){
+    stateChoice = $(this).val()
+    //call ajax for state population data ==> state COVID data ==> renderResults
+    // statePop();
+})
+
+//TODO: what if the user changes back to State=Choose state?
+//TODO: check if no data or just zeroes and design answer as that
