@@ -155,33 +155,16 @@ let sum = (arr) => {
 //render results on page
 let renderResults = () => {
     // if statement to determine where to print results
-    if (compare === true){
-        $('#compare-box').empty()
-        //final calc for output variables
-        //here we take latest day data on cases per 100 000 people
-        let dispActive = (activeCases[activeCases.length-1] / currentPop) * 100000
-        dispActive = dispActive.toFixed(1)
-        let dispNew = (confirmedDiff[confirmedDiff.length -1] / currentPop) * 100000
-        dispNew = dispNew.toFixed(2)
-        //here we calculate the trend in each variable over 14 days
-        let dispActiveTrend = calcTrend(activeCases)
-        dispActiveTrend = dispActiveTrend.toFixed(1)
-        let dispNewTrend = calcTrend(confirmedDiff)
-        dispNewTrend = dispNewTrend.toFixed(1)
-        //here we include a variable for + sign in case the trend is positive. - sign for negative would appear mathematically anyway
-        let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
-        let signNewTrend = (dispNewTrend > 0) ? '+' : '';
-        //append to page
-        $('#compare-box').append($('<div id="active-cases">').text(`Active cases per 100k people ${dispActive}`));
-        $('#compare-box').append($('<div id="active-cases-trend">').text(`Active case trend is ${signActiveTrend}${dispActiveTrend}% per day`));
-    
-        $('#compare-box').append($('<div id="new-cases">').text(`New cases per day per 100k people ${dispNew}`));
-        $('#compare-box').append($('<div id="new-cases-trend">').text(`New case trend is ${signNewTrend}${dispNewTrend}% per day`));
-
-    } else {
-    $('#result-box').empty()
-    $('#result-title').text(`Results for ${countryChoice}`)
-    if (stateChoice) {$('#result-title').text(`Results for ${stateChoice}`)}
+    let resultBox=$('#result-box');
+    //pick, which box you use for results
+    if (compare === true){ resultBox=$('#compare-box') }
+    resultBox.empty();
+    // set box title
+    let titleText = resultBox.parent()
+    let existing = titleText.children().first().text()
+    titleText.children().first().text(`${existing} ${countryChoice}`)
+    if (stateChoice) {titleText.children().first().text(`${existing} ${stateChoice}`)}
+    //check if there is data
     if(sum(activeCases) || sum(confirmedDiff)) {
     //final calc for output variables
     //here we take latest day data on cases per 100 000 people
@@ -198,15 +181,14 @@ let renderResults = () => {
     let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
     let signNewTrend = (dispNewTrend > 0) ? '+' : '';
     //append to page
-    $('#result-box').append($('<div id="active-cases">').text(`Active cases per 100k people ${dispActive}`));
-    $('#result-box').append($('<div id="active-cases-trend">').text(`Active case trend is ${signActiveTrend}${dispActiveTrend}% per day`));
+    resultBox.append($('<div id="active-cases">').text(`Active cases per 100k people ${dispActive}`));
+    resultBox.append($('<div id="active-cases-trend">').text(`Active case trend is ${signActiveTrend}${dispActiveTrend}% per day`));
 
-    $('#result-box').append($('<div id="new-cases">').text(`New cases per day per 100k people ${dispNew}`));
-    $('#result-box').append($('<div id="new-cases-trend">').text(`New case trend is ${signNewTrend}${dispNewTrend}% per day`));
+    resultBox.append($('<div id="new-cases">').text(`New cases per day per 100k people ${dispNew}`));
+    resultBox.append($('<div id="new-cases-trend">').text(`New case trend is ${signNewTrend}${dispNewTrend}% per day`));
     } else {
-    $('#result-box').append($('<div id="active-cases">').text(`No Data reported`));
+    resultBox.append($('<div id="active-cases">').text(`No Data reported`));
     }
-}
 }
 
 //listen to drop-down menu change
@@ -222,10 +204,10 @@ $('#country-choice').change(function () {
     compareBtn.attr("disabled", false);
     //call ajax for population data ==> countryData ==> renderResults
     countryPop();
+    //if US is chosen, show state choice
     if (countryChoice === 'United States'){
     $('#state-choice-box').removeClass('is-hidden')
     }
-
 })
 
 //listen to state drop-down menu change
@@ -239,4 +221,7 @@ $('#state-choice').change(function (){
 compareBtn.click(function() {
     // changing compare to true/false depending on current state
     compare = (compare) ? false:true;
+    // if (compare) {
+    //     compareBtn.prepend('<i class="fas fa-arrow-right"></i>')
+    // }
 })
