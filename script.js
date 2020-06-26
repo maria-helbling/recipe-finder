@@ -283,7 +283,11 @@ $('#state-choice').change(function (){
 compareBtn.click(function() {
     // changing compare to true/false depending on current state
     compare = (compare) ? false:true;
-    // if (compare) {
-    //     compareBtn.prepend('<i class="fas fa-arrow-right"></i>')
-    // }
+    if (compare === true){
+        $("#result-box").removeClass("box-shadow")
+        $("#compare-box").addClass("box-shadow")
+    } else {
+        $("#compare-box").removeClass("box-shadow")
+        $("#result-box").addClass("box-shadow")
+    }
 })
