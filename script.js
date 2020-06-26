@@ -207,6 +207,7 @@ let renderResults = () => {
     $('#result-box').append($('<div id="active-cases">').text(`No Data reported`));
     }
 }
+}
 
 //listen to drop-down menu change
 $('#country-choice').change(function () {
