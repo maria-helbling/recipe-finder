@@ -5,6 +5,10 @@ let currentPop;
 var dateArray = [];
 let stateChoice="";
 let mean;
+var compare = false;
+var compareBtn = $("#compare-button")
+// disable comparison button until initial results are rendered
+compareBtn.attr("disabled", true);
 
 //populates countries to drop-down from countries.js
 populateCountries('country-choice');
@@ -150,6 +154,31 @@ let sum = (arr) => {
 
 //render results on page
 let renderResults = () => {
+    // if statement to determine where to print results
+    if (compare === true){
+        $('#compare-box').empty()
+        //final calc for output variables
+        //here we take latest day data on cases per 100 000 people
+        let dispActive = (activeCases[activeCases.length-1] / currentPop) * 100000
+        dispActive = dispActive.toFixed(1)
+        let dispNew = (confirmedDiff[confirmedDiff.length -1] / currentPop) * 100000
+        dispNew = dispNew.toFixed(2)
+        //here we calculate the trend in each variable over 14 days
+        let dispActiveTrend = calcTrend(activeCases)
+        dispActiveTrend = dispActiveTrend.toFixed(1)
+        let dispNewTrend = calcTrend(confirmedDiff)
+        dispNewTrend = dispNewTrend.toFixed(1)
+        //here we include a variable for + sign in case the trend is positive. - sign for negative would appear mathematically anyway
+        let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
+        let signNewTrend = (dispNewTrend > 0) ? '+' : '';
+        //append to page
+        $('#compare-box').append($('<div id="active-cases">').text(`Active cases per 100k people ${dispActive}`));
+        $('#compare-box').append($('<div id="active-cases-trend">').text(`Active case trend is ${signActiveTrend}${dispActiveTrend}% per day`));
+    
+        $('#compare-box').append($('<div id="new-cases">').text(`New cases per day per 100k people ${dispNew}`));
+        $('#compare-box').append($('<div id="new-cases-trend">').text(`New case trend is ${signNewTrend}${dispNewTrend}% per day`));
+
+    } else {
     $('#result-box').empty()
     $('#result-title').text(`Results for ${countryChoice}`)
     if (stateChoice) {$('#result-title').text(`Results for ${stateChoice}`)}
@@ -188,6 +217,8 @@ $('#country-choice').change(function () {
         $('#state-choice-box').addClass('is-hidden')
         stateChoice = '';
     }
+    // enable comparison button
+    compareBtn.attr("disabled", false);
     //call ajax for population data ==> countryData ==> renderResults
     countryPop();
     if (countryChoice === 'United States'){
@@ -203,3 +234,8 @@ $('#state-choice').change(function (){
     statePop();
 })
 
+// listen for compareBtn
+compareBtn.click(function() {
+    // changing compare to true/false depending on current state
+    compare = (compare) ? false:true;
+})
