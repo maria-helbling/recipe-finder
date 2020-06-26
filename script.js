@@ -156,14 +156,17 @@ let sum = (arr) => {
 let renderResults = () => {
     // if statement to determine where to print results
     let resultBox=$('#result-box');
+    let existing = `Results for`
     //pick, which box you use for results
-    if (compare === true){ resultBox=$('#compare-box') }
+    if (compare === true){ 
+        resultBox=$('#compare-box');
+        existing = `Compare to`
+    }
     resultBox.empty();
     // set box title
     let titleText = resultBox.parent()
-    let existing = titleText.children().first().text()
     titleText.children().first().text(`${existing} ${countryChoice}`)
-    if (stateChoice) {titleText.children().first().text(`${existing} ${stateChoice}`)}
+    if (stateChoice) {titleText.children().first().text(`${existing} ${stateChoice}, US`)}
     //check if there is data
     if(sum(activeCases) || sum(confirmedDiff)) {
     //final calc for output variables
@@ -172,24 +175,83 @@ let renderResults = () => {
     dispActive = dispActive.toFixed(1)
     let dispNew = (confirmedDiff[confirmedDiff.length -1] / currentPop) * 100000
     dispNew = dispNew.toFixed(2)
-    //here we calculate the trend in each variable over 14 days
+    //here we calculate the trend in new cases over 14 days
     let dispNewTrend = calcTrend(confirmedDiff)
     dispNewTrend = dispNewTrend.toFixed(1)
+    //choose color
+    let colorNew = 'gold'
+    if (dispNewTrend<-1) { colorNew = 'darkgreen'} else if (dispNewTrend>1) {colorNew = 'darkred'}
+    //here we calculate the trend in active cases over 14 days
     let dispActiveTrend = calcTrend(activeCases)
     dispActiveTrend = dispActiveTrend.toFixed(1)
+    //choose color
+    let colorActive = 'gold'
+    if (dispActiveTrend<-1) { colorActive = 'darkgreen'} else if (dispActiveTrend>1) {colorActive = 'darkred'}
     //here we include a variable for + sign in case the trend is positive. - sign for negative would appear mathematically anyway
     let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
     let signNewTrend = (dispNewTrend > 0) ? '+' : '';
     //append to page
     resultBox.append($('<div id="active-cases">').text(`Active cases per 100k people ${dispActive}`));
     resultBox.append($('<div id="active-cases-trend">').text(`Active case trend is ${signActiveTrend}${dispActiveTrend}% per day`));
-
+    drawChart(colorActive,activeCases, resultBox);
     resultBox.append($('<div id="new-cases">').text(`New cases per day per 100k people ${dispNew}`));
     resultBox.append($('<div id="new-cases-trend">').text(`New case trend is ${signNewTrend}${dispNewTrend}% per day`));
+    drawChart(colorNew,confirmedDiff, resultBox);
     } else {
     resultBox.append($('<div id="active-cases">').text(`No Data reported`));
     }
 }
+
+
+//draw little trend chart
+let drawChart = (chartColor, dataArr, appendTarget) =>{
+    //set unique chart id
+    let identifier = `val${dataArr[0]}`
+   //put canvas on page
+    let chartArea = $(`<div class="chart-container" id="datachart">`)
+    chartArea.append($(`<canvas id="${identifier}">`))
+    appendTarget.append(chartArea)
+    let ctx=$(`#${identifier}`);
+    //draw chart
+    var myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: [' ', ' ', ' ', ' ', ' ', ' ',' ',' ',' ',' ',' ',' ',' ',' '],
+            datasets: [{
+                label:'',
+                data: dataArr,
+                backgroundColor: chartColor,
+                borderColor: chartColor,
+                borderWidth: 1
+            }]
+        },
+        options: {
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero:false,
+                        display: false
+                    },
+                    gridLines: {
+                        display:false
+                    }
+                }],
+                xAxes:[{
+                    gridLines: {
+                        display:false
+                    }
+                }]
+            },
+            legend: {
+                display: false
+            },
+            tooltips: {
+                enabled: false
+            }
+            }
+    })
+}
+
 
 //listen to drop-down menu change
 $('#country-choice').change(function () {
