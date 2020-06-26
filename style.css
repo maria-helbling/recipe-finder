@@ -9,7 +9,12 @@ footer {
     margin-top: 100px;
 }
 
-.hero {
+/* .hero {
 
     padding-top: 50px;
+} */
+
+.leftPadding {
+
+    margin-left: 20px;
 }
