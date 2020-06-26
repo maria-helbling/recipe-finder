@@ -24,142 +24,155 @@
 
 <body>
 
-        <html class="has-navbar-fixed-top"></html>
+    <!-- <html class="has-navbar-fixed-top"></html> -->
 
-        <nav class="navbar is-fixed-top is-warning notification" role="navigation" aria-label="main navigation">
-            <div class="navbar-brand">
-                <a href="index.html" class="navbar-item has-text-weight-semibold">Home</a>
-            </div>
-        </nav>
-    
-
-    <section class="hero is-danger">
-        <figure class="is-background image is-fluid">
-            <img src="assets\man in airport.jpg">
-        </figure>
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    What is the COVID-19 risk
-                </h1>
-                <h2 class="subtitle">
-                    where you would like to travel?
-                </h2>
-            </div>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a href="index.html" class="navbar-item has-text-weight-semibold">Home</a>
         </div>
-    </section>
+    </nav>
 
-
-        <!--This is the country dropdown-->
-    
-        <div class="container">
-            <div class="columns">   
-                <div class="column center">
-                    <div class="notification">
-                        <div class="select">
-                            <select id="country-choice"></select>
-                        </div>
-                    </div>
-                </div> 
+        <section class="hero">
+            <figure class="is-background-image is-fluid">
+                <img src="assets\man in airport.jpg">
+            </figure>
+            <div class="hero-body">
+                <div class="container">
+                    <h1 class="title">
+                        What is the COVID-19 risk
+                    </h1>
+                    <h2 class="subtitle">
+                        where you would like to travel?
+                    </h2>
+                </div>
             </div>
-        </div>
-        <!-- This is the state drop down -->
-        <div id="state-choice-box" class="container is-hidden">
-            <div class="columns">
-                <div class="column center">
-                    <div class="notification">
-                        <div class="select">
-                            <select id="state-choice"></select>
-                        </div>
+        </section>
+
+
+    <!--This is the country dropdown-->
+
+    <div class="container">
+        <div class="columns">
+            <div class="column center">
+                <div class="notification">
+                    <div class="select">
+                        <select id="country-choice"></select>
                     </div>
                 </div>
             </div>
         </div>
-
-        
-
-        <!--Result-->   
-    
-        <div class="container">
-            <div class="columns">
-                <div class="column is-two-fifths">
-                    <div class="card ">
-                        
-                        <div class="card-header is-size-4">Results:</div>
-                        <div class="card-content" id="result-box">
-                            <p id="activeCaseEl">Active cases per 100k people:</p>
-                            <p id="activeTrendEl">Active case trend is:</p>
-                            <p id="newCasesEl">New cases per day per 100k people:</p>
-                            <p id="newCaseTrendEl">New case trend is:</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="column center">
-                    <div id="compare" class="buttons">
-                        <button id="compare-button" class="button is-primary is-large">Compare</button>
-                    </div>
-                </div>
-                <div class="column is-two-fifths">
-                    <div class="card">
-                        <div class="card-header is-size-4">Compare:</div>
-                        <div class="card-content" id="compare-box">
-                            <p id="activeCaseEl">Active cases per 100k people:</p>
-                            <p id="activeTrendEl">Active case trend is:</p>
-                            <p id="newCasesEl">New cases per day per 100k people:</p>
-                            <p id="newCaseTrendEl">New case trend is:</p>
-                        </div>
+    </div>
+    <!-- This is the state drop down -->
+    <div id="state-choice-box" class="container is-hidden">
+        <div class="columns">
+            <div class="column center">
+                <div class="notification">
+                    <div class="select">
+                        <select id="state-choice"></select>
                     </div>
                 </div>
             </div>
         </div>
-    
+    </div>
 
-          <footer class="footer">
-            <div class="container">
-                <div class="columns is-desktop">
-                    <div class="column">
-                        <strong>Maria Helbling</strong>
-                        <p>Backend Project Manager</p>
-                        <div>
-                            <a href="https://www.linkedin.com/in/mariahelblingprofile/" target="blank"><i class="fa fa-linkedin" style="font-size:24px"></i></a>
-                            <a href="https://github.com/maria-helbling" target="blank"><i class="fa fa-github-square" style="font-size:24px"></i></a>
-                        </div>
+
+
+    <!--Result-->
+
+    <div class="container">
+        <div class="columns">
+            <div class="column is-two-fifths">
+                <div class="card ">
+
+                    <div class="card-header is-size-4">Results:</div>
+                    <div class="card-content" id="result-box">
+                        <p id="activeCaseEl">Active cases per 100k people:</p>
+                        <p id="activeTrendEl">Active case trend is:</p>
+                        <p id="newCasesEl">New cases per day per 100k people:</p>
+                        <p id="newCaseTrendEl">New case trend is:</p>
                     </div>
-                    <div class="column">
-                        <strong>Arati Bhandwalkar</strong>
-                        <p>Frontend HTML component</p>
-                        <div>
-                            <a href="https://www.linkedin.com/in/aratiadake15/"  target="blank" ><i class="fa fa-linkedin" style="font-size: 24px;"></i></a>
-                            <a href="https://github.com/Arati15" target="blank"><i class="fa fa-github-square" style="font-size:24px"></i></a>
-                          </div>
-          
-                    </div>
-                    <div class="column">
-                        <strong>Bryce Pingul</strong>
-                        <p>Backend Git Master</p>
-                        <div>
-                            <a href="www.linkedin.com/in/bryce-pingul" target="blank"><i class="fa fa-linkedin" style="font-size:24px"></i></a>
-                            <a href="https://github.com/Brycetp11" target="blank"><i class="fa fa-github-square" style="font-size:24px"></i></a> 
-                          </div>
-                    </div>
-                    <div class="column">
-                        <strong>James Fisher</strong>
-                        <p>Frontend CSS Framework</p>
-                        <div>
-                            <a href="https://www.linkedin.com/in/jameslincolnfisher/" target="blank"><i class="fa fa-linkedin" style="font-size:24px"></i></a>
-                            <a href="https://github.com/jfisher396" target="blank"><i class="fa fa-github-square" style="font-size:24px"></i></a>
-                         </div>
-                  </div>
-                </div>  
-        
+                </div>
             </div>
-            <!-- Copyright -->
+            <div class="column center">
+                <div id="compare" class="buttons">
+                    <button id="compare-button" class="button is-primary is-large">Compare</button>
+                </div>
+            </div>
+            <div class="column is-two-fifths">
+                <div class="card">
+                    <div class="card-header is-size-4">Compare:</div>
+                    <div class="card-content" id="compare-box">
+                        <p id="activeCaseEl">Active cases per 100k people:</p>
+                        <p id="activeTrendEl">Active case trend is:</p>
+                        <p id="newCasesEl">New cases per day per 100k people:</p>
+                        <p id="newCaseTrendEl">New case trend is:</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer class="footer">
+
+        <div class="columns is-mobile">
+            <div class="column is-half-mobile is-one-quarter-desktop">
+                <strong>Maria Helbling</strong>
+                <p>Backend Project Manager</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/mariahelblingprofile/" target="blank"><i class="fa fa-linkedin"
+                            style="font-size:24px"></i></a>
+                    <a href="https://github.com/maria-helbling" target="blank"><i class="fa fa-github-square"
+                            style="font-size:24px"></i></a>
+                </div>
+            </div>
+
+            <div class="column is-half-mobile is-one-quarter-desktop">
+                <strong>Arati Bhandwalkar</strong>
+                <p>Frontend HTML component</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/aratiadake15/" target="blank"><i class="fa fa-linkedin"
+                            style="font-size: 24px;"></i></a>
+                    <a href="https://github.com/Arati15" target="blank"><i class="fa fa-github-square"
+                            style="font-size:24px"></i></a>
+                </div>
+
+            </div>
+        </div>
+        <div class="columns is-mobile">
+
+            <div class="column is-half-mobile is-one-quarter-desktop">
+                <strong>Bryce Pingul</strong>
+                <p>Backend Git Master</p>
+                <div>
+                    <a href="www.linkedin.com/in/bryce-pingul" target="blank"><i class="fa fa-linkedin"
+                            style="font-size:24px"></i></a>
+                    <a href="https://github.com/Brycetp11" target="blank"><i class="fa fa-github-square"
+                            style="font-size:24px"></i></a>
+                </div>
+            </div>
+
+            <div class="column is-half-mobile is-one-quarter-desktop">
+                <strong>James Fisher</strong>
+                <p>Frontend CSS Framework</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/jameslincolnfisher/" target="blank"><i class="fa fa-linkedin"
+                            style="font-size:24px"></i></a>
+                    <a href="https://github.com/jfisher396" target="blank"><i class="fa fa-github-square"
+                            style="font-size:24px"></i></a>
+                </div>
+            </div>
+
+
+
+        </div>
+        <!-- Copyright -->
         <div class="footer-copyright content has-text-centered">© 2020 Copyright :</div>
-          </footer>
+    </footer>
 
 
-        <!-- own script file link -->
-        <script src="script.js"></script>
+    <!-- own script file link -->
+    <script src="script.js"></script>
 </body>
 
 </html>
