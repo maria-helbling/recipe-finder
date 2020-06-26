@@ -155,18 +155,28 @@ let sum = (arr) => {
 //render results on page
 let renderResults = () => {
     // if statement to determine where to print results
-    let resultBox=$('#result-box');
+    let activeBox=$('#active-box');
+    let activeTrendBox=$('#active-trend-box');
+    let activeChartBox = $('#active-chart-box')
+    let newBox=$('#new-box');
+    let newTrendBox=$('#new-trend-box');
+    let newChartBox = $('#new-chart-box')
     let existing = `Results for`
+    let resultBox = $('#result-title')
     //pick, which box you use for results
     if (compare === true){ 
-        resultBox=$('#compare-box');
-        existing = `Compare to`
+        // resultBox=$('#compare-box');
+        // existing = `Compare to`
     }
-    resultBox.empty();
+    activeBox.empty();
+    activeTrendBox.empty();
+    activeChartBox.empty();
+    newBox.empty();
+    newTrendBox.empty();
+    newChartBox.empty();
     // set box title
-    let titleText = resultBox.parent()
-    titleText.children().first().text(`${existing} ${countryChoice}`)
-    if (stateChoice) {titleText.children().first().text(`${existing} ${stateChoice}, US`)}
+    resultBox.text(`${existing} ${countryChoice}`)
+    if (stateChoice) {resultBox.text(`${existing} ${stateChoice}, US`)}
     //check if there is data
     if(sum(activeCases) || sum(confirmedDiff)) {
     //final calc for output variables
@@ -191,14 +201,27 @@ let renderResults = () => {
     let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
     let signNewTrend = (dispNewTrend > 0) ? '+' : '';
     //append to page
-    resultBox.append($('<div id="active-cases">').text(`Active cases per 100k people ${dispActive}`));
-    resultBox.append($('<div id="active-cases-trend">').text(`Active case trend is ${signActiveTrend}${dispActiveTrend}% per day`));
-    drawChart(colorActive,activeCases, resultBox);
-    resultBox.append($('<div id="new-cases">').text(`New cases per day per 100k people ${dispNew}`));
-    resultBox.append($('<div id="new-cases-trend">').text(`New case trend is ${signNewTrend}${dispNewTrend}% per day`));
-    drawChart(colorNew,confirmedDiff, resultBox);
+    activeBox.append($('<p>').text(`Active cases`));
+    activeBox.append($('<p class="is-size-4">').text(dispActive));
+    activeTrendBox.append($('<p>').text(`14 day trend`));
+    activeTrendBox.append($('<p class="is-size-4">').text(`${signActiveTrend}${dispActiveTrend}%`));
+    activeTrendBox.css(`background-color`, colorActive)
+    activeTrendBox.css(`color`, `skyblue`)
+    drawChart(colorActive,activeCases, activeChartBox);
+    newBox.append($('<p>').text(`New cases`));
+    newBox.append($('<p class="is-size-4">').text(dispNew));
+    newTrendBox.append($('<p>').text(`14 day trend`));
+    newTrendBox.append($('<p class="is-size-4">').text(`${signNewTrend}${dispNewTrend}%`));
+    newTrendBox.css(`background-color`, colorNew)
+    newTrendBox.css(`color`, 'skyblue')
+    drawChart(colorNew,confirmedDiff, newChartBox);
     } else {
-    resultBox.append($('<div id="active-cases">').text(`No Data reported`));
+        activeBox.append($('<p>')).text(`No data`);
+        activeBox.append($('<p>')).text(`reported`);
+        activeChartBox.append($('<p>')).text(`Nothing to show`)
+        newBox.append($('<p>').text(`No data`));
+        newBox.append($('<p>').text(`reported`));
+        newChartBox.append('<p>').text(`Nothing to show`)
     }
 }
 
