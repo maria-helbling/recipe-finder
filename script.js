@@ -55,6 +55,7 @@ function countryData() {
             if (index === dateArray.length - 1) {
                 //put results on page
                 renderResults();
+                console.log(activeCases);
             }
         })
     })
@@ -156,18 +157,34 @@ let sum = (arr) => {
 let renderResults = () => {
     $(".modal").removeClass("is-active");
     // if statement to determine where to print results
-    let resultBox=$('#result-box');
+    let activeBox=$('#active-box');
+    let activeTrendBox=$('#active-trend-box');
+    let activeChartBox = $('#active-chart-box')
+    let newBox=$('#new-box');
+    let newTrendBox=$('#new-trend-box');
+    let newChartBox = $('#new-chart-box')
     let existing = `Results for`
+    let resultBox = $('#result-title')
     //pick, which box you use for results
     if (compare === true){ 
-        resultBox=$('#compare-box');
-        existing = `Compare to`
+        activeBox=$('#compare-active-box');
+        activeTrendBox=$('#compare-active-trend-box');
+        activeChartBox = $('#compare-active-chart-box')
+        newBox=$('#compare-new-box');
+        newTrendBox=$('#compare-new-trend-box');
+        newChartBox = $('#compare-new-chart-box')
+        existing = `Comparison results for`
+        resultBox = $('#compare-title')
     }
-    resultBox.empty();
+    activeBox.empty();
+    activeTrendBox.empty();
+    activeChartBox.empty();
+    newBox.empty();
+    newTrendBox.empty();
+    newChartBox.empty();
     // set box title
-    let titleText = resultBox.parent()
-    titleText.children().first().text(`${existing} ${countryChoice}`)
-    if (stateChoice) {titleText.children().first().text(`${existing} ${stateChoice}, US`)}
+    resultBox.text(`${existing} ${countryChoice}`)
+    if (stateChoice) {resultBox.text(`${existing} ${stateChoice}, US`)}
     //check if there is data
     if(sum(activeCases) || sum(confirmedDiff)) {
     //final calc for output variables
@@ -192,25 +209,38 @@ let renderResults = () => {
     let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
     let signNewTrend = (dispNewTrend > 0) ? '+' : '';
     //append to page
-    resultBox.append($('<div id="active-cases">').text(`Active cases per 100k people ${dispActive}`));
-    resultBox.append($('<div id="active-cases-trend">').text(`Active case trend is ${signActiveTrend}${dispActiveTrend}% per day`));
-    drawChart(colorActive,activeCases, resultBox);
-    resultBox.append($('<div id="new-cases">').text(`New cases per day per 100k people ${dispNew}`));
-    resultBox.append($('<div id="new-cases-trend">').text(`New case trend is ${signNewTrend}${dispNewTrend}% per day`));
-    drawChart(colorNew,confirmedDiff, resultBox);
+    activeBox.append($('<p>').text(`Active cases`));
+    activeBox.append($('<p class="is-size-4">').text(dispActive));
+    activeTrendBox.append($('<p>').text(`14 day trend`));
+    activeTrendBox.append($('<p class="is-size-4">').text(`${signActiveTrend}${dispActiveTrend}%`));
+    activeTrendBox.css(`background-color`, colorActive)
+    activeTrendBox.css(`color`, `skyblue`)
+    console.log(activeCases)
+    drawChart(colorActive,activeCases, activeChartBox);
+    newBox.append($('<p>').text(`New cases`));
+    newBox.append($('<p class="is-size-4">').text(dispNew));
+    newTrendBox.append($('<p>').text(`14 day trend`));
+    newTrendBox.append($('<p class="is-size-4">').text(`${signNewTrend}${dispNewTrend}%`));
+    newTrendBox.css(`background-color`, colorNew)
+    newTrendBox.css(`color`, 'skyblue')
+    drawChart(colorNew,confirmedDiff, newChartBox);
     } else {
-    resultBox.append($('<div id="active-cases">').text(`No Data reported`));
+        activeBox.append($('<p>')).text(`No data`);
+        activeBox.append($('<p>')).text(`reported`);
+        activeChartBox.append($('<p>')).text(`Nothing to show`)
+        newBox.append($('<p>').text(`No data`));
+        newBox.append($('<p>').text(`reported`));
+        newChartBox.append('<p>').text(`Nothing to show`)
     }
 }
-
 
 //draw little trend chart
 let drawChart = (chartColor, dataArr, appendTarget) =>{
     //set unique chart id
     let identifier = `val${dataArr[0]}`
-   //put canvas on page
-    let chartArea = $(`<div class="chart-container" id="datachart">`)
-    chartArea.append($(`<canvas id="${identifier}">`))
+    //put canvas on page
+    // let chartArea = $(`<div class="chart-container" id="datachart">`)
+    let chartArea =$(`<canvas id="${identifier}">`)
     appendTarget.append(chartArea)
     let ctx=$(`#${identifier}`);
     //draw chart
@@ -248,11 +278,11 @@ let drawChart = (chartColor, dataArr, appendTarget) =>{
             },
             tooltips: {
                 enabled: false
-            }
+            },
+            maintainAspectRatio: false
             }
     })
 }
-
 
 //listen to drop-down menu change
 $('#country-choice').change(function () {
