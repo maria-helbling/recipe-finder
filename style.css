@@ -61,3 +61,6 @@ footer {
         padding: 1rem
     }
   }
+.progress {
+    z-index: 1;
+}

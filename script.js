@@ -155,6 +155,7 @@ let sum = (arr) => {
 
 //render results on page
 let renderResults = () => {
+    $(".modal").removeClass("is-active");
     // if statement to determine where to print results
     let activeBox=$('#active-box');
     let activeTrendBox=$('#active-trend-box');
@@ -285,7 +286,8 @@ let drawChart = (chartColor, dataArr, appendTarget) =>{
 
 //listen to drop-down menu change
 $('#country-choice').change(function () {
-    countryChoice = $(this).val()
+    $(".modal").addClass("is-active");
+    countryChoice = $(this).val();
     //reset state drop-down if needed
     if (stateChoice.length>0) {
         $('#state-choice')[0].selectedIndex = 0;
@@ -304,6 +306,7 @@ $('#country-choice').change(function () {
 
 //listen to state drop-down menu change
 $('#state-choice').change(function (){
+    $(".modal").addClass("is-active");
     stateChoice = $(this).val()
     //call ajax for state population data ==> state COVID data ==> renderResults
     statePop();
