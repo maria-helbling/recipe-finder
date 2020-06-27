@@ -12,15 +12,20 @@ footer {
     margin-top: 100px;
 }
 
-/* .hero {
-
-    padding-top: 50px;
+.bg-image {
+    
+    background-image: url(assets/man-in-airport.jpg);
+    background-position: center top;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+    
 }
-} */
 
-.leftPadding {
-
-    margin-left: 20px;
+.img-responsive {
+    display: block;
+    max-width: 100%;
+    height: auto;
 }
 
 .rotate {
