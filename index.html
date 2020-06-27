@@ -80,39 +80,144 @@
     </section>
 
 
-    <!-- Results container -->
-    <div class="container">
-        <div class="columns">
-            <!--First Result-->
-            <div class="column is-two-fifths-desktop">
-                <div class="card">
-                    <div class="card-header is-size-4">Results:</div>
-                    <div class="card-content" id="result-box"></div>
+        <!--Result-->
+
+        <div class="container">
+            <div class="columns">
+                <div class="column is-two-fifths">
+                    <!-- result box -->
+                    <div class="card" id="result-box">
+                        <div class="card-header is-size-4" id="result-title">Results</div>
+                        <div class="card-content">
+                            <div class="columns is-vcentered"> <!--active case row-->
+                                <div class="column is-two-fifths px-0 rotate"> <!--Title column-->
+                                    <div class="has-text-centered" id="active-cases-title">
+                                        <h3 class="subtitle">Active cases</h3>
+                                        <p>per 100k people</p>
+                                    </div>
+                                </div>
+                                <div class="column is-three-fifths" > <!--active case data-->
+                                    <div class="columns" id="active-cases-data">
+                                        <div class="column has-text-centered" id="active-box">
+                                            <p>Active cases</p> 
+                                            <br>
+                                        </div>
+                                        <div class="column has-text-centered px-0"id="active-trend-box"> 14 day trend </div>
+                                    </div>
+                                    <div class="columns"> <!--active case chart-->
+                                        <div class="column chart-container" id="active-chart-box">
+                                        <br>
+                                        <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-2">
+                            <div class="columns is-vcentered"> <!--new case row-->
+                                <div class="column is-two-fifths px-0 rotate"> <!--Title column-->
+                                    <div class="has-text-centered" id="new-cases-title"> 
+                                        <h3 class="subtitle">New cases</h3>
+                                        <p>per day</p>
+                                        <p>per 100k people</p>
+                                    </div>
+                                </div>
+                                <div class="column is-three-fifths"> <!--New case data-->
+                                    <div class="columns" id="new-cases-data">
+                                        <div class="column has-text-centered" id="new-box">
+                                            <p>New cases</p>
+                                            <br>
+                                        </div>
+                                        <div class="column has-text-centered px-0" id="new-trend-box"> 14 day trend </div>
+                                    </div>
+                                    <div class="columns"> <!--new case chart-->
+                                        <div class="column chart-container" id="new-chart-box">
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <!-- Compare Button!! -->
-            <div class="column center">
-                <div id="compare" class="buttons">
-                    <button id="compare-button" class="button is-primary is-large">Compare</button>
+                <!-- compare button -->
+                <div class="column center">
+                    <div id="compare" class="buttons">
+                        <button id="compare-button" class="button is-primary is-large">Compare</button>
+                    </div>
                 </div>
-            </div>
-            <!-- Second Result -->
-            <div class="column is-two-fifths-desktop">
-                <div class="card">
-                    <div class="card-header is-size-4">Compare:</div>
-                    <div class="card-content" id="compare-box"></div>
+                <!-- compare box -->
+                <div class="column is-two-fifths">
+                    <div class="card" id="compare-box">
+                        <div class="card-header is-size-4" id="compare-title">Comparison results</div>
+                        <div class="card-content">
+                            <div class="columns is-vcentered"> <!--active case row-->
+                                <div class="column is-two-fifths px-0 rotate"> <!--Title column-->
+                                    <div class="has-text-centered" id="compare-cases-title">
+                                        <h3 class="subtitle">Active cases</h3>
+                                        <p>per 100k people</p>
+                                    </div>
+                                </div>
+                                <div class="column is-three-fifths" > <!--active case data-->
+                                    <div class="columns" id="compare-active-data">
+                                        <div class="column has-text-centered" id="compare-active-box">
+                                            <p>Active cases</p> 
+                                            <br>
+                                        </div>
+                                        <div class="column has-text-centered px-0" id="compare-active-trend-box"> 14 day trend </div>
+                                    </div>
+                                    <div class="columns"> <!--active case chart-->
+                                        <div class="column chart-container" id="compare-active-chart-box">
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <hr class="my-2">
+                            <div class="columns is-vcentered"> <!--new case row-->
+                                <div class="column is-two-fifths px-0 rotate"> <!--Title column-->
+                                    <div class="has-text-centered" id="compare-new-title"> 
+                                        <h3 class="subtitle">New cases</h3>
+                                        <p>per day</p>
+                                        <p>per 100k people</p>
+                                    </div>
+                                </div>
+                                <div class="column is-three-fifths"> <!--New case data-->
+                                    <div class="columns" id="compare-new-data">
+                                        <div class="column has-text-centered" id="compare-new-box">
+                                            <p>New cases</p>
+                                            <br>
+                                        </div>
+                                        <div class="column has-text-centered px-0" id="compare-new-trend-box"> 14 day trend </div>
+                                    </div>
+                                    <div class="columns"> <!--new case chart-->
+                                        <div class="column chart-container" id="compare-new-chart-box">
+                                            <br>
+                                            <br>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 
+    <!-- modal loading -->
+    <div class="modal ">
+        <div class="modal-background"></div>
+                    <progress class="progress is-large is-link" max="100">50%</progress>
+    </div>
 
     <footer class="footer">
 
         <div class="columns is-mobile is-multiline">
             <div class="column is-half-mobile is-one-quarter-desktop ">
                 <strong>Maria Helbling</strong>
-                <p>Backend Project Manager</p>
+                <p>Back-end | Project ruler</p>
                 <div>
                     <a href="https://www.linkedin.com/in/mariahelblingprofile/" target="_blank"><i
                             class="fa fa-linkedin" style="font-size:24px"></i></a>
@@ -123,7 +228,7 @@
             </div>
             <div class="column is-half-mobile is-one-quarter-desktop ">
                 <strong>Arati Bhandwalkar</strong>
-                <p>Frontend HTML component</p>
+                <p>Front-end | HTML champ</p>
                 <div>
                     <a href="https://www.linkedin.com/in/aratiadake15/" target="_blank"><i class="fa fa-linkedin"
                             style="font-size: 24px;"></i></a>
@@ -135,7 +240,7 @@
 
             <div class="column is-half-mobile is-one-quarter-desktop ">
                 <strong>Bryce Pingul</strong>
-                <p>Backend Git Master</p>
+                <p>Back-end | Git master</p>
                 <div>
                     <a href="www.linkedin.com/in/bryce-pingul" target="_blank"><i class="fa fa-linkedin"
                             style="font-size:24px"></i></a>
@@ -146,7 +251,7 @@
 
             <div class="column is-half-mobile is-one-quarter-desktop ">
                 <strong>James Fisher</strong>
-                <p>Frontend CSS Framework</p>
+                <p>Front-end | CSS king</p>
                 <div>
                     <a href="https://www.linkedin.com/in/jameslincolnfisher/" target="_blank"><i class="fa fa-linkedin"
                             style="font-size:24px"></i></a>
@@ -158,6 +263,7 @@
 
 
         </div>
+
         <!-- Copyright -->
         <div class="footer-copyright content has-text-centered">© 2020 Copyright</div>
     </footer>

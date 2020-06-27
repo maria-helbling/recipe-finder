@@ -15,9 +15,52 @@ footer {
 /* .hero {
 
     padding-top: 50px;
+}
 } */
 
 .leftPadding {
 
     margin-left: 20px;
+}
+
+.rotate {
+    -webkit-transform: rotate(-90deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+      -ms-transform: rotate(-90deg);  /* IE 9 */
+          transform: rotate(-90deg); 
+    padding: 1rem
+}
+
+.less-padding {
+    padding: 0;
+}
+.subtitle:not(:last-child) {
+     margin: 0;
+ }
+
+ .card-content {
+     padding-left:0;
+ }
+
+ #active-cases-title{
+     margin-top: auto;
+ }
+
+ #new-cases-title {
+     margin-top: auto;
+ }
+
+.chart-container {
+    width: 100%;
+}
+
+ @media only screen and (max-width: 768px) {
+    .rotate {
+        -webkit-transform: rotate(0deg);  /* Chrome, Opera 15+, Safari 3.1+ */
+          -ms-transform: rotate(0deg);  /* IE 9 */
+              transform: rotate(0deg); 
+        padding: 1rem
+    }
+  }
+.progress {
+    z-index: 1;
 }
