@@ -5,7 +5,7 @@
 }
 
 .box-shadow {
-    box-shadow: 0px 0px 3px 3px red;
+    box-shadow: 0px 0px 3px 3px rgb(95, 0, 95);
 }
 footer {
     
@@ -68,4 +68,19 @@ footer {
   }
 .progress {
     z-index: 1;
+}
+
+#green {
+    background-color: green;
+    color: green;
+}
+
+#yellow {
+    background-color: gold;
+    color: gold;
+}
+
+#red {
+    background-color: darkred;
+    color: darkred;
 }
