@@ -21,3 +21,7 @@ footer {
 
     margin-left: 20px;
 }
+
+.progress {
+    z-index: 1;
+}
