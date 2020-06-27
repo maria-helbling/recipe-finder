@@ -55,6 +55,7 @@ function countryData() {
             if (index === dateArray.length - 1) {
                 //put results on page
                 renderResults();
+                console.log(activeCases);
             }
         })
     })
@@ -165,8 +166,14 @@ let renderResults = () => {
     let resultBox = $('#result-title')
     //pick, which box you use for results
     if (compare === true){ 
-        // resultBox=$('#compare-box');
-        // existing = `Compare to`
+        activeBox=$('#compare-active-box');
+        activeTrendBox=$('#compare-active-trend-box');
+        activeChartBox = $('#compare-active-chart-box')
+        newBox=$('#compare-new-box');
+        newTrendBox=$('#compare-new-trend-box');
+        newChartBox = $('#compare-new-chart-box')
+        existing = `Comparison results for`
+        resultBox = $('#compare-title')
     }
     activeBox.empty();
     activeTrendBox.empty();
@@ -207,6 +214,7 @@ let renderResults = () => {
     activeTrendBox.append($('<p class="is-size-4">').text(`${signActiveTrend}${dispActiveTrend}%`));
     activeTrendBox.css(`background-color`, colorActive)
     activeTrendBox.css(`color`, `skyblue`)
+    console.log(activeCases)
     drawChart(colorActive,activeCases, activeChartBox);
     newBox.append($('<p>').text(`New cases`));
     newBox.append($('<p class="is-size-4">').text(dispNew));
@@ -225,14 +233,13 @@ let renderResults = () => {
     }
 }
 
-
 //draw little trend chart
 let drawChart = (chartColor, dataArr, appendTarget) =>{
     //set unique chart id
     let identifier = `val${dataArr[0]}`
-   //put canvas on page
-    let chartArea = $(`<div class="chart-container" id="datachart">`)
-    chartArea.append($(`<canvas id="${identifier}">`))
+    //put canvas on page
+    // let chartArea = $(`<div class="chart-container" id="datachart">`)
+    let chartArea =$(`<canvas id="${identifier}">`)
     appendTarget.append(chartArea)
     let ctx=$(`#${identifier}`);
     //draw chart
@@ -270,11 +277,11 @@ let drawChart = (chartColor, dataArr, appendTarget) =>{
             },
             tooltips: {
                 enabled: false
-            }
+            },
+            maintainAspectRatio: false
             }
     })
 }
-
 
 //listen to drop-down menu change
 $('#country-choice').change(function () {
