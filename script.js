@@ -4,6 +4,7 @@ let confirmedDiff = [];
 let currentPop;
 var dateArray = [];
 let stateChoice="";
+let stateBarVisible=false;
 let mean;
 var compare = false;
 var compareBtn = $("#compare-button")
@@ -21,7 +22,7 @@ for (let i = 15; i > 1; i--) {
     var date = moment().subtract(i, 'days').format("YYYY-MM-DD");
     dateArray.push(date);
 }
-
+console.log(dateArray)
 // grabbing country covid data
 function countryData() {
     //adjust for different spelling in this API
@@ -50,12 +51,12 @@ function countryData() {
             //results array
             activeCases.push(activeSum);
             confirmedDiff.push(newSum);
-
             //on the last date iteration do calculations and render results
             if (index === dateArray.length - 1) {
                 //put results on page
+                console.log(activeCases.length)
                 renderResults();
-                console.log(activeCases);
+                
             }
         })
     })
@@ -189,6 +190,7 @@ let renderResults = () => {
     if(sum(activeCases) || sum(confirmedDiff)) {
     //final calc for output variables
     //here we take latest day data on cases per 100 000 people
+    console.log(activeCases.length)
     let dispActive = (activeCases[activeCases.length-1] / currentPop) * 100000
     dispActive = dispActive.toFixed(1)
     let dispNew = (confirmedDiff[confirmedDiff.length -1] / currentPop) * 100000
@@ -215,7 +217,6 @@ let renderResults = () => {
     activeTrendBox.append($('<p class="is-size-4">').text(`${signActiveTrend}${dispActiveTrend}%`));
     activeTrendBox.css(`background-color`, colorActive)
     activeTrendBox.css(`color`, `skyblue`)
-    console.log(activeCases)
     drawChart(colorActive,activeCases, activeChartBox);
     newBox.append($('<p>').text(`New cases`));
     newBox.append($('<p class="is-size-4">').text(dispNew));
@@ -236,6 +237,7 @@ let renderResults = () => {
 
 //draw little trend chart
 let drawChart = (chartColor, dataArr, appendTarget) =>{
+    console.log(dataArr)
     //set unique chart id
     let identifier = `val${dataArr[0]}`
     //put canvas on page
@@ -289,10 +291,11 @@ $('#country-choice').change(function () {
     $(".modal").addClass("is-active");
     countryChoice = $(this).val();
     //reset state drop-down if needed
-    if (stateChoice.length>0) {
+    if (stateBarVisible) {
         $('#state-choice')[0].selectedIndex = 0;
         $('#state-choice-box').addClass('is-hidden')
         stateChoice = '';
+        stateBarVisible = false;
     }
     // enable comparison button
     compareBtn.attr("disabled", false);
@@ -301,6 +304,7 @@ $('#country-choice').change(function () {
     //if US is chosen, show state choice
     if (countryChoice === 'United States'){
     $('#state-choice-box').removeClass('is-hidden')
+    stateBarVisible = true
     }
 })
 

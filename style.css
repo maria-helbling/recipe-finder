@@ -5,19 +5,23 @@
 }
 
 .box-shadow {
-    box-shadow: 0px 0px 3px 3px red;
+    box-shadow: 0px 0px 3px 3px rgb(95, 0, 95);
 }
 footer {
     
-    margin-top: 100px;
+    margin-bottom: auto;
+
 }
 
+.footer {
+    background-color: rgb(248, 207, 101);
+}
 
 header,
 section,
 footer{
     margin: 0;
-    padding: 1px;
+    padding: 0;
 }
 
 
@@ -30,6 +34,10 @@ footer{
     background-attachment: fixed;
     background-size: 100%;
     
+}
+
+body {
+    background-image: linear-gradient(rgb(248, 207, 101), white);
 }
 
 .img-responsive {
@@ -75,7 +83,47 @@ footer{
               transform: rotate(0deg); 
         padding: 1rem
     }
+    .card-content {
+        padding-left: 24px;
+    }
   }
 .progress {
     z-index: 1;
+}
+
+#about-page {
+    color: purple
+}
+
+#green {
+    background-color: green;
+    color: green;
+}
+
+#yellow {
+    background-color: gold;
+    color: gold;
+}
+
+#red {
+    background-color: darkred;
+    color: darkred;
+}
+
+.notification {
+    background-color: white;
+}
+
+@media only screen and (max-width: 768px) {
+.sticky {
+    position: sticky;
+    top: 6vh; /* When the element reaches top: 10px, it becomes fixed. */
+    z-index: 9;
+  }
+
+  .sticky2 {
+    position: sticky;
+    top: 13vh; /* When the element reaches top: 10px, it becomes fixed. */
+    z-index: 9;
+  }
 }
