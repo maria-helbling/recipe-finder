@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Covidocity</title>
+    <!-- bulma link -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+    <!-- our style sheet  -->
+    <link rel="stylesheet" href="../style.css">
+    <!-- font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- moment.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- countries.js -->
+    <script src="assets/countries.js"></script>
+
+</head>
+
+<body>
+    <!-- Navigation bar -->
+    <html class="has-navbar-fixed-top">
+
+    </html>
+    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <a href="../index.html" class="navbar-item has-text-weight-bold" style="font-size: 24px">Covidocity</a>
+        
+            <!--<h1 class="navbar-item has-text-weight-semibold">What is COVID-19 doing at your destination?</h1>-->
+        </div>
+        
+    </nav>
+
+    <!-- Banner statement -->
+    <section class="hero">
+
+        <div>
+
+            <div class="container hero-body bg-image img-responsive">
+
+                <!--Result-->
+
+                <div class="container">
+                    <!-- about text box -->
+                    <div class="columns ">
+                        <div class="column">
+                            <div class="card mt-4">
+                                <div class="card-header is-size-4 pl-1">
+                                    About the data
+                                </div>
+                                <div class="card-contnet px-2 py-2">
+                                    <h3 class="has-text-weight-bold mb-2">Legend</h3>
+                                    <br>
+                                    <h4 class='has-text-weight-semibold mb-1'>Colors:</h4>
+                                    <p><span id="green">box</span> - an improving situation  <span id="yellow">box</span> - a stable situation  <span id="red">box</span> - a deteriorating situation</p>
+                                    <br>
+                                    <h4 class='has-text-weight-semibold mb-1'>Numbers:</h4>
+                                    <p><span class='has-text-weight-medium'>Active cases</span> - shows per every 100k people in that location, how many currently are considered to have COVID-19</p>
+                                    <p><span class='has-text-weight-medium'>New daily cases</span> - shows per every 100k people in that location, how many new cases were reported yesterday</p>
+                                    <p><span class='has-text-weight-medium'>14 day Trend</span> - for active cases, we take the reported number of active cases in each day for the last 14 days. We calculate the slope of the trend line over time and convert it so it shows the % change relative to the average number of cases in that 14 day period.</p>
+                                    <hr>
+                                    <h3 class="has-text-weight-bold">Sources</h3>
+                                    <br>
+                                    <p>We use three APIs to find this data for you. COVID-19 stats come from the <a href="https://github.com/CSSEGISandData/COVID-19" target="_blank" rel="noopener noreferrer">COVID data Repository</a> by the Center for Systems Science and Engineering (CSSE) at Johns Hopkins University.</p>
+                                    <p>This data is provided for informational purposes only and does not serve in any advisory capacity. Like with any statistical illustration, this shows the best available info snapshot at a given moment. The data at this repository is updated often and retroactively, so the results for each destination are subject to change.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> <!--result container end-->
+            </div> <!--hero body div end-->
+        </div> <!--empty div end-->
+        </div> <!--empty div end-->
+    </section> <!--section end-->
+
+
+
+
+
+    <!-- modal loading -->
+    <div class="modal ">
+        <div class="modal-background"></div>
+        <progress class="progress is-large is-link" max="100">50%</progress>
+    </div>
+
+    <footer class="footer">
+
+        <div class="columns is-mobile is-multiline">
+            <div class="column is-half-mobile is-one-quarter-desktop ">
+                <strong>Maria Helbling</strong>
+                <p>Back-end | Project ruler</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/mariahelblingprofile/" target="_blank"><i
+                            class="fa fa-linkedin" style="font-size:24px"></i></a>
+                    <a href="https://github.com/maria-helbling" target="blank"><i class="fa fa-github-square"
+                            style="font-size:24px"></i></a>
+                </div>
+
+            </div>
+            <div class="column is-half-mobile is-one-quarter-desktop ">
+                <strong>Arati Bhandwalkar</strong>
+                <p>Front-end | HTML champ</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/aratiadake15/" target="_blank"><i class="fa fa-linkedin"
+                            style="font-size: 24px;"></i></a>
+                    <a href="https://github.com/Arati15" target="blank"><i class="fa fa-github-square"
+                            style="font-size:24px"></i></a>
+                </div>
+            </div>
+
+
+            <div class="column is-half-mobile is-one-quarter-desktop ">
+                <strong>Bryce Pingul</strong>
+                <p>Back-end | Git master</p>
+                <div>
+                    <a href="www.linkedin.com/in/bryce-pingul/" target="_blank"><i class="fa fa-linkedin"
+                            style="font-size:24px"></i></a>
+                    <a href="https://github.com/Brycetp11" target="_blank"><i class="fa fa-github-square"
+                            style="font-size:24px"></i></a>
+                </div>
+            </div>
+
+            <div class="column is-half-mobile is-one-quarter-desktop ">
+                <strong>James Fisher</strong>
+                <p>Front-end | CSS king</p>
+                <div>
+                    <a href="https://www.linkedin.com/in/jameslincolnfisher/" target="_blank"><i class="fa fa-linkedin"
+                            style="font-size:24px"></i></a>
+                    <a href="https://github.com/jfisher396" target="_blank"><i class="fa fa-github-square"
+                            style="font-size:24px"></i></a>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-copyright content has-text-centered">© 2020 Copyright</div>
+    </footer>
+
+
+    <!-- own script file link -->
+    <script src="script.js"></script>
+</body>
+
+</html>

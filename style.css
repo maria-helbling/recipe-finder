@@ -7,10 +7,10 @@
 .box-shadow {
     box-shadow: 0px 0px 3px 3px rgb(95, 0, 95);
 }
-footer {
+/* footer {
     
     margin-top: 100px;
-}
+}*/
 
 .bg-image {
     
@@ -83,4 +83,22 @@ footer {
 #red {
     background-color: darkred;
     color: darkred;
+}
+
+.notification {
+    background-color: white;
+}
+
+@media only screen and (max-width: 768px) {
+.sticky {
+    position: sticky;
+    top: 6vh; /* When the element reaches top: 10px, it becomes fixed. */
+    z-index: 9;
+  }
+
+  .sticky2 {
+    position: sticky;
+    top: 13vh; /* When the element reaches top: 10px, it becomes fixed. */
+    z-index: 9;
+  }
 }
