@@ -6,6 +6,7 @@ var dateArray = [];
 let stateChoice="";
 let stateBarVisible=false;
 let mean;
+let counter = 0
 var compare = false;
 var compareBtn = $("#compare-button")
 // disable comparison button until initial results are rendered
@@ -22,21 +23,22 @@ for (let i = 15; i > 1; i--) {
     var date = moment().subtract(i, 'days').format("YYYY-MM-DD");
     dateArray.push(date);
 }
-console.log(dateArray)
+
 // grabbing country covid data
 function countryData() {
-    //adjust for different spelling in this API
-    if (countryChoice === 'United States') { countryChoice = 'US' }
+    
     //reset array variables
+    if (counter === 0){
     activeCases = [];
     confirmedDiff = [];
-    //loop through the last 14 days of data
-    dateArray.forEach((value, index) => {
-
-        var queryURL = "https://covid-api.com/api/reports?date=" + value + "&region_name=" + countryChoice;
+    //adjust for different spelling in this API
+    if (countryChoice === 'United States') { countryChoice = 'US' }
+    }
+        var queryURL = "https://covid-api.com/api/reports?date=" + dateArray[counter] + "&region_name=" + countryChoice;
 
         $.ajax({
             url: queryURL,
+            async: true,
             method: "GET"
         }).then(function (response) {
             var activeSum = 0;
@@ -51,15 +53,15 @@ function countryData() {
             //results array
             activeCases.push(activeSum);
             confirmedDiff.push(newSum);
-            //on the last date iteration do calculations and render results
-            if (index === dateArray.length - 1) {
-                //put results on page
-                console.log(activeCases.length)
+            //if need more dates, call back itself
+            if (counter < 13) {
+                counter++
+                countryData();
+            } else {
+                //on the last date iteration do calculations and render results
                 renderResults();
-                
             }
         })
-    })
 }
 
 // grabbing country population for calculations
@@ -78,13 +80,13 @@ function countryPop() {
 
 //grabbing state based COVID data
 function stateData() {
+    if(counter===0){
     //reset array variables
     activeCases = [];
     confirmedDiff = [];
-    //loop through the last 14 days of data
-    dateArray.forEach((value, index) => {
+    }
         
-        var queryStateURL = "https://covid-api.com/api/reports?date=" + value + "&q=US%20" + stateChoice + "&region_name=US";
+        var queryStateURL = "https://covid-api.com/api/reports?date=" + dateArray[counter] + "&q=US%20" + stateChoice + "&region_name=US";
         
         $.ajax({
             url: queryStateURL,
@@ -96,12 +98,15 @@ function stateData() {
             confirmedDiff.push(response.data[0].confirmed_diff);
             
             //on the last date iteration do calculations and render results
-            if (index === dateArray.length - 1) {
+            if (counter < 13) {
+                counter++
+                stateData();
+            } else {
                 //put results on page
                 renderResults();
             }
         })
-    })
+
 }
 
 // grabbing country population for calculations
@@ -156,8 +161,9 @@ let sum = (arr) => {
 
 //render results on page
 let renderResults = () => {
+    //close modal
     $(".modal").removeClass("is-active");
-    // if statement to determine where to print results
+    //grab results space from page
     let activeBox=$('#active-box');
     let activeTrendBox=$('#active-trend-box');
     let activeChartBox = $('#active-chart-box')
@@ -177,6 +183,8 @@ let renderResults = () => {
         existing = `Comparison results for`
         resultBox = $('#compare-title')
     }
+    //reset variables
+    counter=0
     activeBox.empty();
     activeTrendBox.empty();
     activeChartBox.empty();
@@ -188,56 +196,56 @@ let renderResults = () => {
     if (stateChoice) {resultBox.text(`${existing} ${stateChoice}, US`)}
     //check if there is data
     if(sum(activeCases) || sum(confirmedDiff)) {
-    //final calc for output variables
-    //here we take latest day data on cases per 100 000 people
-    console.log(activeCases.length)
-    let dispActive = (activeCases[activeCases.length-1] / currentPop) * 100000
-    dispActive = dispActive.toFixed(1)
-    let dispNew = (confirmedDiff[confirmedDiff.length -1] / currentPop) * 100000
-    dispNew = dispNew.toFixed(2)
-    //here we calculate the trend in new cases over 14 days
-    let dispNewTrend = calcTrend(confirmedDiff)
-    dispNewTrend = dispNewTrend.toFixed(1)
-    //choose color
-    let colorNew = 'gold'
-    if (dispNewTrend<-1) { colorNew = 'darkgreen'} else if (dispNewTrend>1) {colorNew = 'darkred'}
-    //here we calculate the trend in active cases over 14 days
-    let dispActiveTrend = calcTrend(activeCases)
-    dispActiveTrend = dispActiveTrend.toFixed(1)
-    //choose color
-    let colorActive = 'gold'
-    if (dispActiveTrend<-1) { colorActive = 'darkgreen'} else if (dispActiveTrend>1) {colorActive = 'darkred'}
-    //here we include a variable for + sign in case the trend is positive. - sign for negative would appear mathematically anyway
-    let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
-    let signNewTrend = (dispNewTrend > 0) ? '+' : '';
-    //append to page
-    activeBox.append($('<p>').text(`Active cases`));
-    activeBox.append($('<p class="is-size-4">').text(dispActive));
-    activeTrendBox.append($('<p>').text(`14 day trend`));
-    activeTrendBox.append($('<p class="is-size-4">').text(`${signActiveTrend}${dispActiveTrend}%`));
-    activeTrendBox.css(`background-color`, colorActive)
-    activeTrendBox.css(`color`, `skyblue`)
-    drawChart(colorActive,activeCases, activeChartBox);
-    newBox.append($('<p>').text(`New cases`));
-    newBox.append($('<p class="is-size-4">').text(dispNew));
-    newTrendBox.append($('<p>').text(`14 day trend`));
-    newTrendBox.append($('<p class="is-size-4">').text(`${signNewTrend}${dispNewTrend}%`));
-    newTrendBox.css(`background-color`, colorNew)
-    newTrendBox.css(`color`, 'skyblue')
-    drawChart(colorNew,confirmedDiff, newChartBox);
+        //final calc for output variables
+        //here we take latest day data on cases per 100 000 people
+        let dispActive = (activeCases[activeCases.length-1] / currentPop) * 100000
+        dispActive = dispActive.toFixed(1)
+        let dispNew = (confirmedDiff[confirmedDiff.length -1] / currentPop) * 100000
+        dispNew = dispNew.toFixed(2)
+        //here we calculate the trend in new cases over 14 days
+        let dispNewTrend = calcTrend(confirmedDiff)
+        dispNewTrend = dispNewTrend.toFixed(1)
+        //choose color for new cases
+        let colorNew = 'gold'
+        if (dispNewTrend<-1) { colorNew = 'darkgreen'} else if (dispNewTrend>1) {colorNew = 'darkred'}
+        //here we calculate the trend in active cases over 14 days
+        let dispActiveTrend = calcTrend(activeCases)
+        dispActiveTrend = dispActiveTrend.toFixed(1)
+        //choose color for active cases
+        let colorActive = 'gold'
+        if (dispActiveTrend<-1) { colorActive = 'darkgreen'} else if (dispActiveTrend>1) {colorActive = 'darkred'}
+        //here we include a variable for + sign in case the trend is positive. - sign for negative would appear mathematically anyway
+        let signActiveTrend = (dispActiveTrend > 0) ? '+' : '';
+        let signNewTrend = (dispNewTrend > 0) ? '+' : '';
+        //append to page
+        activeBox.append($('<p>').text(`Active cases`));
+        activeBox.append($('<p class="is-size-4">').text(dispActive));
+        activeTrendBox.append($('<p>').text(`14 day trend`));
+        activeTrendBox.append($('<p class="is-size-4">').text(`${signActiveTrend}${dispActiveTrend}%`));
+        activeTrendBox.css(`background-color`, colorActive)
+        activeTrendBox.css(`color`, `skyblue`)
+        drawChart(colorActive,activeCases, activeChartBox);
+        newBox.append($('<p>').text(`New cases`));
+        newBox.append($('<p class="is-size-4">').text(dispNew));
+        newTrendBox.append($('<p>').text(`14 day trend`));
+        newTrendBox.append($('<p class="is-size-4">').text(`${signNewTrend}${dispNewTrend}%`));
+        newTrendBox.css(`background-color`, colorNew)
+        newTrendBox.css(`color`, 'skyblue')
+        drawChart(colorNew,confirmedDiff, newChartBox);
     } else {
-        activeBox.append($('<p>')).text(`No data`);
-        activeBox.append($('<p>')).text(`reported`);
-        activeChartBox.append($('<p>')).text(`Nothing to show`)
+        activeBox.append($('<p>').text(`No data`));
+        activeBox.append($('<p>').text(`reported`));
+        activeTrendBox.css(`background-color`, 'white')
+        activeChartBox.append($('<p>').text(`Nothing to show`))
         newBox.append($('<p>').text(`No data`));
         newBox.append($('<p>').text(`reported`));
-        newChartBox.append('<p>').text(`Nothing to show`)
+        newTrendBox.css(`background-color`, 'white')
+        newChartBox.append($('<p>').text(`Nothing to show`))
     }
 }
 
 //draw little trend chart
 let drawChart = (chartColor, dataArr, appendTarget) =>{
-    console.log(dataArr)
     //set unique chart id
     let identifier = `val${dataArr[0]}`
     //put canvas on page
