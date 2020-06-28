@@ -24,195 +24,215 @@
 
 <body>
     <!-- Navigation bar -->
-    <html class="has-navbar-fixed-top">
+    <html class="has-navbar-fixed-top"></html>
 
-    </html>
-    <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+    <nav class="navbar is-fixed-top" style="background-color: rgb(243, 209, 117)" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a href="index.html" class="navbar-item has-text-weight-semibold">Covidocity</a>
+            <a href="index.html" class="navbar-item has-text-weight-bold" style="color: purple ; font-size:24px">Covidocity</a>
         </div>
     </nav>
+
     <!-- Banner statement -->
     <section class="hero">
-        <figure class="is-background-image is-fluid">
-            <img src="assets/man-in-airport.jpg" alt="man waiting at airport terminal">
-        </figure>
-        <div class="hero-body">
-            <div class="container">
-                <h1 class="title">
-                    What is the COVID-19 risk
-                </h1>
-                <h2 class="subtitle">
-                    where you would like to travel?
-                </h2>
-            </div>
-        </div>
-    </section>
 
+        <div>
 
-    <!--This is the country dropdown-->
-    <section>
-        <div class="container">
-            <div class="columns">
-                <div class="column center">
-                    <div class="notification">
-                        <div class="select">
-                            <select id="country-choice"></select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-    <!-- This is the state drop down -->
-    <section>
-        <div id="state-choice-box" class="container is-hidden">
-            <div class="columns">
-                <div class="column center">
-                    <div class="notification">
-                        <div class="select">
-                            <select id="state-choice"></select>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+            <div class="container hero-body bg-image img-responsive">
 
-
-        <!--Result-->
-
-        <div class="container">
-            <div class="columns">
-                <div class="column is-two-fifths">
-                    <!-- result box -->
-                    <div class="card" id="result-box">
-                        <div class="card-header is-size-4" id="result-title">Results</div>
-                        <div class="card-content">
-                            <div class="columns is-vcentered"> <!--active case row-->
-                                <div class="column is-two-fifths px-0 rotate"> <!--Title column-->
-                                    <div class="has-text-centered" id="active-cases-title">
-                                        <h3 class="subtitle">Active cases</h3>
-                                        <p>per 100k people</p>
-                                    </div>
-                                </div>
-                                <div class="column is-three-fifths" > <!--active case data-->
-                                    <div class="columns" id="active-cases-data">
-                                        <div class="column has-text-centered" id="active-box">
-                                            <p>Active cases</p> 
-                                            <br>
-                                        </div>
-                                        <div class="column has-text-centered px-0"id="active-trend-box"> 14 day trend </div>
-                                    </div>
-                                    <div class="columns"> <!--active case chart-->
-                                        <div class="column chart-container" id="active-chart-box">
-                                        <br>
-                                        <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="my-2">
-                            <div class="columns is-vcentered"> <!--new case row-->
-                                <div class="column is-two-fifths px-0 rotate"> <!--Title column-->
-                                    <div class="has-text-centered" id="new-cases-title"> 
-                                        <h3 class="subtitle">New cases</h3>
-                                        <p>per day</p>
-                                        <p>per 100k people</p>
-                                    </div>
-                                </div>
-                                <div class="column is-three-fifths"> <!--New case data-->
-                                    <div class="columns" id="new-cases-data">
-                                        <div class="column has-text-centered" id="new-box">
-                                            <p>New cases</p>
-                                            <br>
-                                        </div>
-                                        <div class="column has-text-centered px-0" id="new-trend-box"> 14 day trend </div>
-                                    </div>
-                                    <div class="columns"> <!--new case chart-->
-                                        <div class="column chart-container" id="new-chart-box">
-                                            <br>
-                                            <br>
-                                        </div>
+                <!--This is the country dropdown-->
+                <section class="sticky">
+                    <div class="container">
+                        <div class="columns">
+                            <div class="column center">
+                                <div class="notification px-2 py-2 mb-2">
+                                    <div class="select">
+                                        <select id="country-choice"></select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <!-- compare button -->
-                <div class="column center">
-                    <div id="compare" class="buttons">
-                        <button id="compare-button" class="button is-primary is-large">Compare</button>
-                    </div>
-                </div>
-                <!-- compare box -->
-                <div class="column is-two-fifths">
-                    <div class="card" id="compare-box">
-                        <div class="card-header is-size-4" id="compare-title">Comparison results</div>
-                        <div class="card-content">
-                            <div class="columns is-vcentered"> <!--active case row-->
-                                <div class="column is-two-fifths px-0 rotate"> <!--Title column-->
-                                    <div class="has-text-centered" id="compare-cases-title">
-                                        <h3 class="subtitle">Active cases</h3>
-                                        <p>per 100k people</p>
-                                    </div>
-                                </div>
-                                <div class="column is-three-fifths" > <!--active case data-->
-                                    <div class="columns" id="compare-active-data">
-                                        <div class="column has-text-centered" id="compare-active-box">
-                                            <p>Active cases</p> 
-                                            <br>
-                                        </div>
-                                        <div class="column has-text-centered px-0" id="compare-active-trend-box"> 14 day trend </div>
-                                    </div>
-                                    <div class="columns"> <!--active case chart-->
-                                        <div class="column chart-container" id="compare-active-chart-box">
-                                            <br>
-                                            <br>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <hr class="my-2">
-                            <div class="columns is-vcentered"> <!--new case row-->
-                                <div class="column is-two-fifths px-0 rotate"> <!--Title column-->
-                                    <div class="has-text-centered" id="compare-new-title"> 
-                                        <h3 class="subtitle">New cases</h3>
-                                        <p>per day</p>
-                                        <p>per 100k people</p>
-                                    </div>
-                                </div>
-                                <div class="column is-three-fifths"> <!--New case data-->
-                                    <div class="columns" id="compare-new-data">
-                                        <div class="column has-text-centered" id="compare-new-box">
-                                            <p>New cases</p>
-                                            <br>
-                                        </div>
-                                        <div class="column has-text-centered px-0" id="compare-new-trend-box"> 14 day trend </div>
-                                    </div>
-                                    <div class="columns"> <!--new case chart-->
-                                        <div class="column chart-container" id="compare-new-chart-box">
-                                            <br>
-                                            <br>
-                                        </div>
+                </section>
+                <!-- This is the state drop down -->
+                <section class="sticky2">
+                    <div id="state-choice-box" class="container is-hidden">
+                        <div class="columns">
+                            <div class="column center">
+                                <div class="notification px-2 py-2 mb-2">
+                                    <div class="select">
+                                        <select id="state-choice"></select>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
+                </section>
+
+
+                <!--Result-->
+
+                <div class="container">
+                    <div class="columns">
+                        <div class="column is-two-fifths">
+                            <!-- result box -->
+                            <div class="card" id="result-box">
+                                <div class="card-header is-size-4 pl-1" style="background-color: purple; color: rgb(248, 207, 101)" id="result-title">Results</div>
+                                <div class="card-content">
+                                    <div class="columns is-vcentered">
+                                        <!--active case row-->
+                                        <div class="column is-two-fifths px-0 rotate">
+                                            <!--Title column-->
+                                            <div class="has-text-centered" id="active-cases-title">
+                                                <h3 class="subtitle">Active cases</h3>
+                                                <p>per 100k people</p>
+                                            </div>
+                                        </div>
+                                        <div class="column is-three-fifths">
+                                            <!--active case data-->
+                                            <div class="columns" id="active-cases-data">
+                                                <div class="column has-text-centered" id="active-box">
+                                                    <p>Active cases</p>
+                                                    <br>
+                                                </div>
+                                                <div class="column has-text-centered px-0" id="active-trend-box"> 14 day
+                                                    trend </div>
+                                            </div>
+                                            <div class="columns">
+                                                <!--active case chart-->
+                                                <div class="column chart-container" id="active-chart-box">
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    <div class="columns is-vcentered">
+                                        <!--new case row-->
+                                        <div class="column is-two-fifths px-0 rotate">
+                                            <!--Title column-->
+                                            <div class="has-text-centered" id="new-cases-title">
+                                                <h3 class="subtitle">New cases</h3>
+                                                <p>per day</p>
+                                                <p>per 100k people</p>
+                                            </div>
+                                        </div>
+                                        <div class="column is-three-fifths">
+                                            <!--New case data-->
+                                            <div class="columns" id="new-cases-data">
+                                                <div class="column has-text-centered" id="new-box">
+                                                    <p>New cases</p>
+                                                    <br>
+                                                </div>
+                                                <div class="column has-text-centered px-0" id="new-trend-box"> 14 day
+                                                    trend </div>
+                                            </div>
+                                            <div class="columns">
+                                                <!--new case chart-->
+                                                <div class="column chart-container" id="new-chart-box">
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- compare button -->
+                        <div class="column center">
+                            <div id="compare" class="buttons">
+                                <button id="compare-button" class="button is-primary is-large" style="background-color: purple; color: rgb(248, 207, 101)" id="result-title">Compare</button>
+                            </div>
+                        </div>
+                        <!-- compare box -->
+                        <div class="column is-two-fifths">
+                            <div class="card" id="compare-box">
+                                <div class="card-header is-size-4 pl-1" style="background-color: purple; color: rgb(248, 207, 101)" id="compare-title">Comparison results</div>
+                                <div class="card-content">
+                                    <div class="columns is-vcentered">
+                                        <!--active case row-->
+                                        <div class="column is-two-fifths px-0 rotate">
+                                            <!--Title column-->
+                                            <div class="has-text-centered" id="compare-cases-title">
+                                                <h3 class="subtitle">Active cases</h3>
+                                                <p>per 100k people</p>
+                                            </div>
+                                        </div>
+                                        <div class="column is-three-fifths">
+                                            <!--active case data-->
+                                            <div class="columns" id="compare-active-data">
+                                                <div class="column has-text-centered" id="compare-active-box">
+                                                    <p>Active cases</p>
+                                                    <br>
+                                                </div>
+                                                <div class="column has-text-centered px-0"
+                                                    id="compare-active-trend-box"> 14 day trend
+                                                </div>
+                                            </div>
+                                            <div class="columns">
+                                                <!--active case chart-->
+                                                <div class="column chart-container" id="compare-active-chart-box">
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr class="my-2">
+                                    <div class="columns is-vcentered">
+                                        <!--new case row-->
+                                        <div class="column is-two-fifths px-0 rotate">
+                                            <!--Title column-->
+                                            <div class="has-text-centered" id="compare-new-title">
+                                                <h3 class="subtitle">New cases</h3>
+                                                <p>per day</p>
+                                                <p>per 100k people</p>
+                                            </div>
+                                        </div>
+                                        <div class="column is-three-fifths">
+                                            <!--New case data-->
+                                            <div class="columns" id="compare-new-data">
+                                                <div class="column has-text-centered" id="compare-new-box">
+                                                    <p>New cases</p>
+                                                    <br>
+                                                </div>
+                                                <div class="column has-text-centered px-0" id="compare-new-trend-box">
+                                                    14 day trend
+                                                </div>
+                                            </div>
+                                            <div class="columns">
+                                                <!--new case chart-->
+                                                <div class="column chart-container" id="compare-new-chart-box">
+                                                    <br>
+                                                    <br>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!--compare box end-->
+                    </div> <!--result columns end-->
+                </div> <!--result container end-->
+            </div> <!--hero body div end-->
+        </div> <!--empty div end-->
+        </div> <!--empty div end-->
+    </section> <!--section end-->
 
     <!-- modal loading -->
     <div class="modal ">
         <div class="modal-background"></div>
-                    <progress class="progress is-large is-link" max="100">50%</progress>
+        <progress class="progress is-large is-warning" max="100">50%</progress>
     </div>
-
-    <footer class="footer">
+    
+    <!-- footer -->
+    <footer class="footer" >
+        <div class="content has-text-centered">
+            <a class="has-text-weight-semibold" href="assets/info.html" id="about-page">
+                About the data
+              </a>
+        </div>
 
         <div class="columns is-mobile is-multiline">
             <div class="column is-half-mobile is-one-quarter-desktop ">
@@ -242,7 +262,7 @@
                 <strong>Bryce Pingul</strong>
                 <p>Back-end | Git master</p>
                 <div>
-                    <a href="www.linkedin.com/in/bryce-pingul" target="_blank"><i class="fa fa-linkedin"
+                    <a href="www.linkedin.com/in/bryce-pingul/" target="_blank"><i class="fa fa-linkedin"
                             style="font-size:24px"></i></a>
                     <a href="https://github.com/Brycetp11" target="_blank"><i class="fa fa-github-square"
                             style="font-size:24px"></i></a>
@@ -259,8 +279,6 @@
                             style="font-size:24px"></i></a>
                 </div>
             </div>
-
-
 
         </div>
 
