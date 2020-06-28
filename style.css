@@ -12,6 +12,16 @@
     margin-top: 100px;
 }*/
 
+
+header,
+section,
+footer{
+    margin: 0;
+    padding: 1px;
+}
+
+
+
 .bg-image {
     
     background-image: url(assets/man-in-airport.jpg);
