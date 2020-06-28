@@ -217,7 +217,7 @@ let renderResults = () => {
     activeTrendBox.append($('<p class="is-size-4">').text(`${signActiveTrend}${dispActiveTrend}%`));
     activeTrendBox.css(`background-color`, colorActive)
     activeTrendBox.css(`color`, `skyblue`)
-    drawChart(colorActive,activeCases, activeChartBox);
+    drawChart(colorActive,activeCases, activeChartBox)
     newBox.append($('<p>').text(`New cases`));
     newBox.append($('<p class="is-size-4">').text(dispNew));
     newTrendBox.append($('<p>').text(`14 day trend`));

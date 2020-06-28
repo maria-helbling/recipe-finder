@@ -1,3 +1,16 @@
+body {
+    background-image: linear-gradient(rgb(248, 207, 101), white);
+    min-height: 100vh;
+}
+
+header,
+section,
+footer{
+    margin: 0;
+    padding: 0;
+    
+}
+
 .center {
     display: flex;
     justify-content: center;
@@ -7,24 +20,12 @@
 .box-shadow {
     box-shadow: 0px 0px 3px 3px rgb(95, 0, 95);
 }
-footer {
-    
-    margin-bottom: auto;
-
-}
 
 .footer {
     background-color: rgb(248, 207, 101);
+    padding-bottom: 25vh
+    
 }
-
-header,
-section,
-footer{
-    margin: 0;
-    padding: 0;
-}
-
-
 
 .bg-image {
     
@@ -33,11 +34,6 @@ footer{
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: 100%;
-    
-}
-
-body {
-    background-image: linear-gradient(rgb(248, 207, 101), white);
 }
 
 .img-responsive {
@@ -111,7 +107,7 @@ body {
 }
 
 .notification {
-    background-color: white;
+    background-color: rgb(248, 207, 101);
 }
 
 @media only screen and (max-width: 768px) {
