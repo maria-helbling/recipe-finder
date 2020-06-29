@@ -42,13 +42,17 @@ This is a one page site showing quick view stats on travel destinations and allo
     THEN I am again presented with the data points as above in a new comparison container  
 
 
-The page loads with a large hero element and site name. It is then followed by a short description and the input fields.
+The page loads with a large hero element and site name. That is followed by the input fields and results boxes ready to populate.
 
-![Screenshot of load page](#)
+![Screenshot of load page](assets/screen-shot-load.PNG)
 
 There are two results cards for ease of comparison. The results cards indicate the trend values by color. Green for improving, red for worsening and gold for plateauing.
 
-![Screenshot of results cards](#)
+![Screenshot of results cards](assets/screen-shot-results.PNG)
+
+We also offer an about page with info on the calculations and sources of the data.
+
+![Screenshot of about page](assets/screen-shot-about.PNG)
 
 ### Data
 
